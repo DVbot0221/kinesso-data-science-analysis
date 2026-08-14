@@ -1,77 +1,47 @@
-# kinesso-data-science-analysis
-# Data
-
-This project uses two publicly available datasets:
-
-1. UCI Online Shoppers Purchasing Intention Dataset
-   https://archive.ics.uci.edu/dataset/468/online
-
-2. UCI Bank Marketing Dataset
-   https://archive.ics.uci.edu/dataset/222/bank+marketing
-
-The datasets are not included in this repository. Please obtain them from
-their original sources before running the analysis.
 # KINESSO Data Science Analysis
 
-## Overview
+Academic project analysing customer propensity modelling in a marketing context.
 
-This project investigates machine learning approaches to customer
-propensity modelling in marketing, based on the Data Scientist role
-advertised by KINESSO in Melbourne.
-
-Two publicly available datasets are analysed:
-
+## Datasets
 - UCI Online Shoppers Purchasing Intention Dataset
 - UCI Bank Marketing Dataset
 
-## Objectives
+## Models
+- Decision Tree
+- XGBoost
 
-The analysis aims to:
+## Method
+- Stratified 80:20 train-test split
+- Class weighting for imbalanced targets
+- One-hot encoding of categorical variables
+- Duplicate removal for Online Shoppers
+- `duration` excluded from the primary Bank Marketing model because it is only known after a completed contact
+- Evaluation with precision, recall, F1-score and ROC-AUC
 
-- predict customer purchase or response propensity;
-- compare Decision Tree and XGBoost classifiers;
-- identify important predictive factors;
-- evaluate model performance using precision, recall, F1-score and ROC-AUC;
-- compare insights across two marketing contexts.
+## Final results
 
-## Methodology
+| Dataset | Model | Precision | Recall | F1 | ROC-AUC |
+|---|---|---:|---:|---:|---:|
+| Online Shoppers | Decision Tree | 0.532 | 0.817 | 0.644 | 0.908 |
+| Online Shoppers | XGBoost | 0.558 | 0.843 | 0.672 | 0.935 |
+| Bank Marketing | Decision Tree | 0.360 | 0.552 | 0.435 | 0.769 |
+| Bank Marketing | XGBoost | 0.348 | 0.646 | 0.452 | 0.804 |
 
-The analysis uses:
+## Key findings
+`PageValues` was the strongest XGBoost predictor for Online Shoppers.
+`poutcome_success` was the strongest XGBoost predictor for Bank Marketing.
 
-- stratified 80:20 train-test splitting;
-- categorical feature encoding;
-- class weighting to address class imbalance;
-- Decision Tree classification;
-- XGBoost classification.
-
-For the Bank Marketing analysis, `duration` was excluded from the primary
-model because it represents the duration of a completed customer contact
-and would not be available for pre-contact targeting.
-
-## Key Findings
-
-XGBoost achieved the strongest overall performance across both datasets.
-
-For Online Shoppers, XGBoost achieved:
-
-- F1-score: 0.672
-- ROC-AUC: 0.935
-- Recall: 0.843
-
-For Bank Marketing, XGBoost achieved:
-
-- F1-score: 0.452
-- ROC-AUC: 0.804
-- Recall: 0.646
-
-The most influential predictor in the Online Shoppers model was
-`PageValues`, while `poutcome_success` was the strongest predictor in the
-Bank Marketing model.
-
-## Repository Structure
-
+## Structure
 ```text
-data/       Dataset information
-figures/    Generated visualisations
-notebooks/  Analysis notebook
-src/        Python source code
+data/       Dataset instructions
+figures/    Model figures
+notebooks/  Reproducible notebook
+src/        Python analysis script
+```
+
+## Data sources
+- https://archive.ics.uci.edu/dataset/468/online
+- https://archive.ics.uci.edu/dataset/222/bank+marketing
+
+Raw datasets are not included. Download them from the original sources and place
+them in `data/` using the filenames documented in `data/README.md`.
